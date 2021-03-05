@@ -6,9 +6,6 @@
     <meta charset="UTF-8">
     <title>City of Calgary Map</title>
 
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
           crossorigin=""/>
@@ -16,6 +13,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
           crossorigin=""/>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+
 
 </head>
 
@@ -23,31 +25,25 @@
 <body>
 <h1>Map of City of Calgary</h1>
 
-<!--<div id='map' style='width: 1000px; height: 500px;'></div>-->
+<div id='mapid' style='width: 1200px; height: 600px;'></div>
 </body>
 
 
 
-<!--<script>-->
-<!--mapboxgl.accessToken = 'pk.eyJ1IjoibWFoZGluYWltaSIsImEiOiJja2x1YmNtaTUwNHk3Mm5ueW4za2syN3RoIn0.-8ZpViNO2Fn9_XqBdPwQPQ';-->
-<!--var map = new mapboxgl.Map({-->
-<!--container: 'map',-->
-<!--style: 'mapbox://styles/mapbox/streets-v11'-->
-<!--setView([51.505, -0.09])-->
-<!--});-->
-
-<!--</script>-->
-
-
-<div id='map' style='width: 400px; height: 300px;'></div>
 <script>
-mapboxgl.accessToken = 'pk.eyJ1IjoibWFoZGluYWltaSIsImEiOiJja2x1YmNtaTUwNHk3Mm5ueW4za2syN3RoIn0.-8ZpViNO2Fn9_XqBdPwQPQ';
-var map = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/streets-v11', // style URL
-    center: [-114.0719, 51.0447], // starting position [lng, lat]
-    zoom: 9 // starting zoom
-});
+
+var mymap = L.map('mapid').setView([51.0447, -114.0719], 12);
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoibWFoZGluYWltaSIsImEiOiJja2x1YmNtaTUwNHk3Mm5ueW4za2syN3RoIn0.-8ZpViNO2Fn9_XqBdPwQPQ'
+}).addTo(mymap);
+
+<!--L.geoJSON(https://data.calgary.ca/resource/c2es-76ed.geojson).addTo(mymap);-->
 </script>
 
 </html>
