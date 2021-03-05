@@ -18,6 +18,8 @@
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin=""></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 </head>
 
@@ -43,7 +45,19 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoibWFoZGluYWltaSIsImEiOiJja2x1YmNtaTUwNHk3Mm5ueW4za2syN3RoIn0.-8ZpViNO2Fn9_XqBdPwQPQ'
 }).addTo(mymap);
 
-<!--L.geoJSON(https://data.calgary.ca/resource/c2es-76ed.geojson).addTo(mymap);-->
+
+$.getJSON('https://data.calgary.ca/resource/c2es-76ed.geojson', function(data) {
+    L.geoJSON(data, {
+    style: function (feature) {
+        return {color: feature.properties.color};
+    }
+}).bindPopup(function (layer) {
+    return layer.feature.properties.description;
+}).addTo(mymap);
+});
+
+
+
 </script>
 
 </html>
